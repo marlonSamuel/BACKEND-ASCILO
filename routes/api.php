@@ -5,6 +5,8 @@ use App\Http\Controllers\Api\EnfermeroController;
 use App\Http\Controllers\Api\EspecialidadeController;
 use App\Http\Controllers\Api\ExamenController;
 use App\Http\Controllers\Api\MedicamentoController;
+use App\Http\Controllers\Api\MedicoController;
+use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\Api\PsicopatologiaController;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Http\Request;
@@ -37,3 +39,7 @@ Route::resource('conceptos', ConceptoController::class, ['except' => ['create', 
 Route::resource('enfermeros', EnfermeroController::class, ['except' => ['create', 'edit']]);
 //especialidades
 Route::resource('especialidades', EspecialidadeController::class, ['except' => ['create', 'edit']]);
+//medicos
+Route::resource('medicos', MedicoController::class, ['except' => ['create', 'edit']]);
+//pacientes
+Route::resource('pacientes', PacienteController::class, ['except' => ['create', 'edit']]);

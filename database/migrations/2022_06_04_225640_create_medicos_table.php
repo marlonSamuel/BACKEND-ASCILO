@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('primer_nombre',25);
             $table->string('segundo_nombre',25)->nullable();
             $table->string('tercer_nombre',25)->nullable();
-            $table->string('primer_apelllido',25);
+            $table->string('primer_apellido',25);
             $table->string('segundo_apellido',25)->nullable();
             $table->date('fecha_nacimiento');
             $table->string('telefono',15);

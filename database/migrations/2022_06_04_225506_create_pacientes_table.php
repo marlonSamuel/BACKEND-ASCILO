@@ -20,14 +20,15 @@ return new class extends Migration
             $table->string('primer_nombre',25);
             $table->string('segundo_nombre',25)->nullable();
             $table->string('tercer_nombre',25)->nullable();
-            $table->string('primer_apelllido',25);
+            $table->string('primer_apellido',25);
             $table->string('segundo_apellido',25)->nullable();
+            $table->char('genero',1);
             $table->date('fecha_nacimiento');
             $table->string('cui_responsable',15);
             $table->string('primer_nombre_responsable',25);
             $table->string('segundo_nombre_responsable',25)->nullable();
             $table->string('tercer_nombre_responsable',25)->nullable();
-            $table->string('primer_apelllido_responsable',25);
+            $table->string('primer_apellido_responsable',25);
             $table->string('segundo_apellido_responsable',25)->nullable();
             $table->char('parentesco',1);
             $table->string('celular',15);
