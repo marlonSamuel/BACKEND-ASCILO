@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Client;
+use App\Models\Medico;
 use App\Models\Merchant;
 use App\Models\ModelHasRole;
 use App\Models\Role;
@@ -36,5 +37,10 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function medico()
+    {
+        return $this->hasOne(Medico::class);
     }
 }

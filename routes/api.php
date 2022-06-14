@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ConceptoController;
+use App\Http\Controllers\Api\ConsultaMedicaController;
 use App\Http\Controllers\Api\EnfermeroController;
 use App\Http\Controllers\Api\EspecialidadeController;
 use App\Http\Controllers\Api\ExamenController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\Api\MedicamentoController;
 use App\Http\Controllers\Api\MedicoController;
 use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\Api\PsicopatologiaController;
+use App\Http\Controllers\Api\SolicitudController;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Http\Request;
 
@@ -43,3 +45,9 @@ Route::resource('especialidades', EspecialidadeController::class, ['except' => [
 Route::resource('medicos', MedicoController::class, ['except' => ['create', 'edit']]);
 //pacientes
 Route::resource('pacientes', PacienteController::class, ['except' => ['create', 'edit']]);
+//solicitudes
+Route::resource('solicitudes', SolicitudController::class, ['except' => ['create', 'edit']]);
+//consultas medicas
+Route::resource('consultas-medicas', ConsultaMedicaController::class, ['except' => ['create', 'edit']]);
+Route::put('consultas-medicas-finish/{id}', [ConsultaMedicaController::class,'finish']);
+Route::get('consultas-medicas-user', [ConsultaMedicaController::class,'showByUser']);

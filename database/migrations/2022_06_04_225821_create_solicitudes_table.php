@@ -19,6 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('enfermero_id');
             $table->unsignedBigInteger('especialidade_id');
             $table->string('motivo',500);
+            $table->date('fecha_visita');
+            $table->char('estado',1)->default('S');
             $table->timestamps();
 
             $table->foreign('paciente_id')->references('id')->on('pacientes');

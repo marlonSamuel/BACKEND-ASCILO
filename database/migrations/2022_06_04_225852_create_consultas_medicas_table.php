@@ -17,9 +17,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('solicitude_id');
             $table->unsignedBigInteger('medico_id');
-            $table->string('diagnostico',1000);
-            $table->string('observaciones',500);
-            $table->date('fecha');
+            $table->string('diagnostico',1000)->nullable();
+            $table->string('observaciones',500)->nullable();
+            $table->datetime('fecha_asignada');
+            $table->datetime('fecha_asignada_fin');
             $table->timestamps();
 
             $table->foreign('solicitude_id')->references('id')->on('solicitudes');

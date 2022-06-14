@@ -84,9 +84,8 @@ class Handler extends ExceptionHandler
             }
 
             if ($exception instanceof QueryException) {
-                $codigo = $exception->errorInfo[1];
-
-                if ($codigo == 1451) {
+                $codigo = $exception->errorInfo[0];
+                if ($codigo == 23000) {
                     return $this->errorResponse('No se puede eliminar de forma permamente el recurso porque está relacionado con algún otro.', 409);
                 }
             }
