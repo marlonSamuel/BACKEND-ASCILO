@@ -85,6 +85,14 @@ class ConsultaMedicaController extends ApiController
         return $this->showAll($data);
     }
 
+    public function showByUserDate(Request $request, $date)
+    {
+        $user = $request->user();
+        //$data = Consultas_medica::where('medico_id',$user->medico_id)->with('solicitude','medicamentos','examenes')->get();
+        $data = Consultas_medica::whereDate('fecha_asignada', '=' ,$date )->where('medico_id',$user->medico_id)->with('solicitude.paciente','solicitude.enfermero','solicitude.especialidade','medicamentos.medicamento','examenes.examene')->get();
+        return $this->showAll($data);
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -142,7 +150,7 @@ class ConsultaMedicaController extends ApiController
             foreach ($request->examenes as $examen) {
                 Consultas_medicas_examene::create([
                     'consultas_medica_id' => $consultas_medica->id,
-                    'examene_id'=>$examen['id'],
+                    'examene_id'=>$examen['examene_id'],
                     'precio'=>$examen['precio'],
                     'indicaciones'=>$examen['indicaciones']
                 ]);
@@ -155,7 +163,7 @@ class ConsultaMedicaController extends ApiController
             foreach ($request->medicamentos as $medicamento) {
                 Consultas_medicas_medicamento::create([
                     'consultas_medica_id' => $consultas_medica->id,
-                    'medicamento_id' => $medicamento['id'],
+                    'medicamento_id' => $medicamento['medicamento_id'],
                     'cantidad' => $medicamento['cantidad'],
                     'tiempo_aplicacion'=>$medicamento['tiempo_aplicacion'],
                     'indicaciones'=>$medicamento['indicaciones'],

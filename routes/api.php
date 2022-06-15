@@ -51,3 +51,4 @@ Route::resource('solicitudes', SolicitudController::class, ['except' => ['create
 Route::resource('consultas-medicas', ConsultaMedicaController::class, ['except' => ['create', 'edit']]);
 Route::put('consultas-medicas-finish/{id}', [ConsultaMedicaController::class,'finish']);
 Route::get('consultas-medicas-user', [ConsultaMedicaController::class,'showByUser']);
+Route::get('consultas-medicas-user-date/{date}', [ConsultaMedicaController::class,'showByUserDate']);
