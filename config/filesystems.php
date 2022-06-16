@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'local'),
+    'default' => 'resultados',
 
     /*
     |--------------------------------------------------------------------------
@@ -42,6 +42,12 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,
+        ],
+
+        'resultados' => [
+            'driver' => 'local',
+            'root' => public_path('resultados'),
+            'visibility' => 'public',
         ],
 
         's3' => [

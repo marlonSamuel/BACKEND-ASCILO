@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('cantidad');
             $table->integer('tiempo_aplicacion');
             $table->string('indicaciones',500);
+            $table->boolean('entregado')->default(false);
             $table->timestamps();
 
             $table->foreign('consultas_medica_id')->references('id')->on('consultas_medicas');

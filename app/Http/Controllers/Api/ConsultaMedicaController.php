@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
+use App\Models\Ascilo;
 use App\Models\Consultas_medica;
 use App\Models\Consultas_medicas_examene;
 use App\Models\Consultas_medicas_medicamento;
+use App\Models\CostoFundacione;
 use App\Models\Solicitude;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -172,12 +174,22 @@ class ConsultaMedicaController extends ApiController
             }
         }
 
-        $consultas_medica->save();
+        $consulta_pago = CostoFundacione::where('consultas_medica_id',$consultas_medica->id)->first();
+        if(is_null($consulta_pago)){
+            $ascilo = Ascilo::first();
+            CostoFundacione::create([
+                'consultas_medica_id'=>$consultas_medica->id,
+                'consulta' =>$ascilo->consulta,
+                'total' =>$ascilo->consulta
+            ]);
+        }
 
+        $consultas_medica->save();
         DB::commit();
 
         return $this->showOne($consultas_medica,201);
     }
+
 
     /**
      * Remove the specified resource from storage.

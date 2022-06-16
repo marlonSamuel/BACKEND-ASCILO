@@ -13,18 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('consultas_medicas_examenes', function (Blueprint $table) {
+        Schema::create('costo_fundaciones', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('consultas_medica_id');
-            $table->unsignedBigInteger('examene_id');
-            $table->decimal('precio',11,2);
-            $table->string('indicaciones',500);
-            $table->boolean('realizado')->default(false);
-            $table->string('resultado',200)->nullable();
+            $table->decimal('consulta',11,2)->default(0);
+            $table->decimal('medicamentos',11,2)->default(0);
+            $table->decimal('examenes',11,2)->default(0);
+            $table->decimal('total',11,2)->default(0);
             $table->timestamps();
 
             $table->foreign('consultas_medica_id')->references('id')->on('consultas_medicas');
-            $table->foreign('examene_id')->references('id')->on('examenes');
         });
     }
 
@@ -35,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('consultas_medicas_examenes');
+        Schema::dropIfExists('costo_fundaciones');
     }
 };

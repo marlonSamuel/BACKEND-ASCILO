@@ -47,8 +47,6 @@ class Handler extends ExceptionHandler
     {
         $this->renderable(function (Throwable $exception, $request) {
 
-            
-
             if ($exception instanceof ValidationException) {
                 return $this->errorResponse($exception->validator->errors()->getMessages(), 422);
             }
@@ -84,10 +82,11 @@ class Handler extends ExceptionHandler
             }
 
             if ($exception instanceof QueryException) {
-                $codigo = $exception->errorInfo[0];
-                if ($codigo == 23000) {
+                $codigo = $exception->errorInfo[1];
+                if ($codigo == 547) {
                     return $this->errorResponse('No se puede eliminar de forma permamente el recurso porque está relacionado con algún otro.', 409);
                 }
+                return $this->errorResponse($exception->getMessage(), 409);
             }
 
             if ($exception instanceof TokenMismatchException) {

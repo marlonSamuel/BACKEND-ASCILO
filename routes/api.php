@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\EspecialidadeController;
 use App\Http\Controllers\Api\ExamenController;
 use App\Http\Controllers\Api\MedicamentoController;
 use App\Http\Controllers\Api\MedicoController;
+use App\Http\Controllers\Api\PacienteConsultaController;
 use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\Api\PsicopatologiaController;
 use App\Http\Controllers\Api\SolicitudController;
@@ -52,3 +53,9 @@ Route::resource('consultas-medicas', ConsultaMedicaController::class, ['except' 
 Route::put('consultas-medicas-finish/{id}', [ConsultaMedicaController::class,'finish']);
 Route::get('consultas-medicas-user', [ConsultaMedicaController::class,'showByUser']);
 Route::get('consultas-medicas-user-date/{date}', [ConsultaMedicaController::class,'showByUserDate']);
+
+Route::get('consultas-medicas-medicamentos/{dpi}', [PacienteConsultaController::class,'getMedicamentos']);
+Route::get('consultas-medicas-examenes/{dpi}', [PacienteConsultaController::class,'getExamenes']);
+
+Route::put('consultas-medicas-entregar-medicamentos/{id}', [PacienteConsultaController::class,'entregarMedicamento']);
+Route::post('consultas-medicas-resultado-examenes/{id}', [PacienteConsultaController::class,'resultadoExamen']);

@@ -13,7 +13,7 @@ class Consultas_medicas_examene extends Model
     protected $table = 'consultas_medicas_examenes';
 
     protected $fillable = [
-    	'consultas_medica_id','examene_id','precio','indicaciones'
+    	'consultas_medica_id','examene_id','precio','indicaciones','realizado','resultado'
     ];
 
     public function consultas_medica(){

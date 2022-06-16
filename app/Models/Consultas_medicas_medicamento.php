@@ -12,7 +12,7 @@ class Consultas_medicas_medicamento extends Model
     protected $table = 'consultas_medicas_medicamentos';
 
     protected $fillable = [
-    	'consultas_medica_id','medicamento_id','cantidad','tiempo_aplicacion','indicaciones','precio'
+    	'consultas_medica_id','medicamento_id','cantidad','tiempo_aplicacion','indicaciones','precio','entregado'
     ];
 
     public function consultas_medica(){
