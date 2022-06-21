@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('medicamentos',11,2)->default(0);
             $table->decimal('examenes',11,2)->default(0);
             $table->decimal('total',11,2)->default(0);
+            $table->boolean('pagado')->default(0);
             $table->timestamps();
 
             $table->foreign('consultas_medica_id')->references('id')->on('consultas_medicas');

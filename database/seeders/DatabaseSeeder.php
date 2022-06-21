@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Mese;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -29,5 +30,17 @@ class DatabaseSeeder extends Seeder
         	"username"=>"secret",
         	'password' => Hash::make('secret')
         ]);
+
+        $meses = [
+            'enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'
+        ];
+
+        for ($i=0; $i <12; $i++) { 
+            Mese::create([
+                "no" => $i+1,
+                "mes" => $meses[$i]
+            ]);
+        }
+        
     }
 }

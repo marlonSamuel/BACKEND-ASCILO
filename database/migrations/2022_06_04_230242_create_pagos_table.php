@@ -18,6 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('paciente_id');
             $table->unsignedBigInteger('anio_id');
             $table->unsignedBigInteger('mese_id');
+            $table->string('code',10);
+            $table->decimal('monto',8,2);
+            $table->char('estado',1)->default('P');
             $table->timestamps();
 
             $table->foreign('paciente_id')->references('id')->on('pacientes');

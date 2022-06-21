@@ -1,14 +1,19 @@
 <?php
 
+use App\Http\Controllers\Api\AnioController;
 use App\Http\Controllers\Api\ConceptoController;
 use App\Http\Controllers\Api\ConsultaMedicaController;
+use App\Http\Controllers\Api\CostoFundacionController;
 use App\Http\Controllers\Api\EnfermeroController;
 use App\Http\Controllers\Api\EspecialidadeController;
 use App\Http\Controllers\Api\ExamenController;
+use App\Http\Controllers\Api\IngresosGastoController;
 use App\Http\Controllers\Api\MedicamentoController;
 use App\Http\Controllers\Api\MedicoController;
+use App\Http\Controllers\Api\MesController;
 use App\Http\Controllers\Api\PacienteConsultaController;
 use App\Http\Controllers\Api\PacienteController;
+use App\Http\Controllers\Api\PagoController;
 use App\Http\Controllers\Api\PsicopatologiaController;
 use App\Http\Controllers\Api\SolicitudController;
 use App\Http\Controllers\Auth\AuthController;
@@ -59,3 +64,20 @@ Route::get('consultas-medicas-examenes/{dpi}', [PacienteConsultaController::clas
 
 Route::put('consultas-medicas-entregar-medicamentos/{id}', [PacienteConsultaController::class,'entregarMedicamento']);
 Route::post('consultas-medicas-resultado-examenes/{id}', [PacienteConsultaController::class,'resultadoExamen']);
+
+//ingresos o gastos
+Route::resource('ingresos-gastos', IngresosGastoController::class, ['except' => ['create', 'edit']]);
+
+//costo fundaciones
+Route::resource('pagos-fundacion', CostoFundacionController::class, ['except' => ['create', 'edit']]);
+
+//pagos
+Route::resource('pagos', PagoController::class, ['except' => ['create', 'edit']]);
+Route::put('pagos-anular/{code}', [PagoController::class,'anular']);
+Route::get('pagos-ascilo', [PagoController::class,'ascilo']);
+
+//anios
+Route::resource('anios', AnioController::class, ['except' => ['create', 'edit']]);
+
+//meses
+Route::resource('meses', MesController::class, ['except' => ['create', 'edit']]);

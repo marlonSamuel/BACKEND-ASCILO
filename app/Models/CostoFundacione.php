@@ -12,12 +12,12 @@ class CostoFundacione extends Model
     protected $table = 'costo_fundaciones';
 
     protected $fillable = [
-    	'consultas_medica_id','consulta','medicamentos','examenes','total'
+    	'consultas_medica_id','consulta','medicamentos','examenes','total','pagado'
     ];
 
 
-    public function consulta()
+    public function consulta_medica()
     {
-    	return $this->belongsTo(Consultas_medica::class);
+    	return $this->belongsTo(Consultas_medica::class,'consultas_medica_id');
     }
 }
