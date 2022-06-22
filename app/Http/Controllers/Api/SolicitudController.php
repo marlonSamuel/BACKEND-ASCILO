@@ -20,7 +20,7 @@ class SolicitudController extends ApiController
      */
     public function index()
     {
-        $data = Solicitude::with('paciente','enfermero','especialidade','consulta.medico')->orderBy('fecha_visita')->get();
+        $data = Solicitude::with('paciente','enfermero','especialidade','consulta.medico','consulta.medicamentos.medicamento','consulta.examenes.examene')->orderBy('fecha_visita')->get();
         return $this->showAll($data);
     }
 

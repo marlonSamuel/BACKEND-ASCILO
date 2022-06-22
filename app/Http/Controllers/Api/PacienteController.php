@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
 use App\Models\Paciente;
+use App\Models\Pacientes_medicamento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PacienteController extends ApiController
 {  
@@ -20,8 +22,23 @@ class PacienteController extends ApiController
      */
     public function index()
     {
-        $data = Paciente::with('psicopatologia')->get();
+        $data = Paciente::with('psicopatologia','medicamentos.medicamento')->get();
         return $this->showAll($data);
+    }
+
+    //obtener historial medico
+    public function historialMedico($id)
+    {
+        $paciente = Paciente::where('id',$id)
+                              ->with('medicamentos.medicamento','psicopatologia','solicitudes.consulta.medico',
+                                     'solicitudes.enfermero','solicitudes.especialidade',
+                                     'solicitudes.consulta.medicamentos.medicamento',
+                                     'solicitudes.consulta.examenes.examene')
+                              ->first();
+
+        if(is_null($paciente)) return $this->errorResponse('Paciente no existe',421);
+
+        return $this->showOne($paciente);
     }
 
 
@@ -52,8 +69,18 @@ class PacienteController extends ApiController
             'genero'=>'required'
         ]);
 
+        DB::beginTransaction();
         $data = $request->all();
         $paciente = Paciente::create($data);
+
+        foreach ($request->medicamentos as $value) {
+            Pacientes_medicamento::create([
+                "paciente_id" => $paciente->id,
+                "medicamento_id" => $value
+            ]);
+        }
+
+        DB::commit();
 
         return $this->showOne($paciente,201);
     }
@@ -97,6 +124,8 @@ class PacienteController extends ApiController
             'genero'=>'required'
         ]);
 
+        DB::beginTransaction();
+
         $paciente->cui = $request->cui;
         $paciente->psicopatologia_id = $request->psicopatologia_id;
         $paciente->primer_nombre = $request->primer_nombre;
@@ -124,11 +153,22 @@ class PacienteController extends ApiController
         $paciente->telefono = $request->telefono;
         
 
-        if (!$paciente->isDirty()) {
+        /*if (!$paciente->isDirty()) {
             return $this->errorResponse('Se debe especificar al menos un valor diferente para actualizar', 422);
-        }
+        }*/
 
         $paciente->save();
+
+        $paciente->medicamentos()->delete();
+
+        foreach ($request->medicamentos as $value) {
+            Pacientes_medicamento::create([
+                "paciente_id" => $paciente->id,
+                "medicamento_id" => $value
+            ]);
+        }
+
+        DB::commit();
 
         return $this->showOne($paciente,201);
     }
@@ -141,7 +181,10 @@ class PacienteController extends ApiController
      */
     public function destroy(Paciente $paciente)
     {
+        DB::beginTransaction();
+        $paciente->medicamentos()->delete();
         $paciente->delete();
+        DB::commit();
         return $this->showOne($paciente);
     }
 }

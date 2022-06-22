@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Pacientes_medicamento;
 use App\Models\Psicopatologia;
+use App\Models\Solicitude;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -42,5 +44,15 @@ class Paciente extends Model
     public function psicopatologia()
     {
     	return $this->belongsTo(Psicopatologia::class);
+    }
+
+    public function solicitudes()
+    {
+        return $this->hasMany(Solicitude::class);
+    }
+
+    public function medicamentos()
+    {
+        return $this->hasMany(Pacientes_medicamento::class);
     }
 }

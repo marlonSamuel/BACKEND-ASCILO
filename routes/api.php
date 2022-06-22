@@ -51,6 +51,7 @@ Route::resource('especialidades', EspecialidadeController::class, ['except' => [
 Route::resource('medicos', MedicoController::class, ['except' => ['create', 'edit']]);
 //pacientes
 Route::resource('pacientes', PacienteController::class, ['except' => ['create', 'edit']]);
+Route::get('pacientes-historial/{id}', [PacienteController::class,'historialMedico'], ['except' => ['create', 'edit']]);
 //solicitudes
 Route::resource('solicitudes', SolicitudController::class, ['except' => ['create', 'edit']]);
 //consultas medicas
