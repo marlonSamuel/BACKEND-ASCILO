@@ -35,7 +35,7 @@ return new class extends Migration
             $table->string('telefono',15)->nullable();
             $table->string('email',25)->unique();
             $table->string('direccion',150);
-            $table->date('fecha_nacimiento_responsable')->nullable();
+            $table->date('fecha_ingreso');
             $table->string('razon',250);
             $table->string('alergias',100)->nullable();
             $table->timestamps();

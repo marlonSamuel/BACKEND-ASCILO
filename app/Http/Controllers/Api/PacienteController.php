@@ -64,7 +64,7 @@ class PacienteController extends ApiController
             'primer_apellido_responsable' => 'required',
             'parentesco'=>'required',
             'razon'=>'required',
-            'fecha_nacimiento_responsable',
+            'fecha_ingreso',
             'direccion_responsable'=>'required',
             'genero'=>'required'
         ]);
@@ -119,7 +119,7 @@ class PacienteController extends ApiController
             'primer_apellido_responsable' => 'required',
             'parentesco'=>'required',
             'razon'=>'required',
-            'fecha_nacimiento_responsable',
+            'fecha_ingreso',
             'direccion_responsable'=>'required',
             'genero'=>'required'
         ]);
@@ -139,6 +139,7 @@ class PacienteController extends ApiController
         $paciente->razon = $request->razon;
         $paciente->alergias = $request->alergias;
         $paciente->genero = $request->genero;
+        $paciente->fecha_ingreso = $request->fecha_ingreso;
 
         //información del responsable
         $paciente->cui_responsable = $request->cui_responsable;
@@ -146,7 +147,6 @@ class PacienteController extends ApiController
         $paciente->segundo_nombre_responsable = $request->segundo_nombre_responsable;
         $paciente->primer_apellido_responsable = $request->primer_apellido_responsable;
         $paciente->segundo_nombre_responsable = $request->segundo_nombre_responsable;
-        $paciente->fecha_nacimiento_responsable = $request->fecha_nacimiento_responsable;
         $paciente->direccion_responsable = $request->direccion_responsable;
         $paciente->email = $request->email;
         $paciente->celular = $request->celular;

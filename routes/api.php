@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\PacienteConsultaController;
 use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\Api\PagoController;
 use App\Http\Controllers\Api\PsicopatologiaController;
+use App\Http\Controllers\Api\ReporteController;
 use App\Http\Controllers\Api\SolicitudController;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Http\Request;
@@ -82,3 +83,11 @@ Route::resource('anios', AnioController::class, ['except' => ['create', 'edit']]
 
 //meses
 Route::resource('meses', MesController::class, ['except' => ['create', 'edit']]);
+
+//reportes
+Route::post('reporte-pacientes', [ReporteController::class,'pacientes']);
+Route::post('reporte-cobros', [ReporteController::class,'cobros']);
+Route::post('reporte-pagos-fundacion', [ReporteController::class,'pagosFundacion']);
+Route::post('reporte-ingresos-gastos', [ReporteController::class,'ingresosGastos']);
+Route::post('reporte-examenes', [ReporteController::class,'examenes']);
+Route::post('reporte-medicamentos', [ReporteController::class,'medicamentos']);
