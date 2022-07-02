@@ -92,8 +92,6 @@ class Handler extends ExceptionHandler
             if ($exception instanceof TokenMismatchException) {
                 return redirect()->back()->withInput($request->input());
             }
-
-            dd($exception);
             return $this->errorResponse($exception->getMessage(), 500);
             return $this->errorResponse('Falla inesperada. Intente luego', 500);
         });
