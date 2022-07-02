@@ -9,9 +9,13 @@ use App\Models\Consultas_medica;
 use App\Models\Consultas_medicas_examene;
 use App\Models\Consultas_medicas_medicamento;
 use App\Models\CostoFundacione;
+use App\Models\Especialidade;
+use App\Models\Medico;
+use App\Models\Paciente;
 use App\Models\Solicitude;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class ConsultaMedicaController extends ApiController
 {  
@@ -56,6 +60,20 @@ class ConsultaMedicaController extends ApiController
         if(!is_null($solicitud)){
             $solicitud->estado = 'P';
             $solicitud->save();
+
+            $paciente = Paciente::find($solicitud->paciente_id);
+            $medico = Medico::find($request->medico_id);
+            $especialidad = Especialidade::find($solicitud->especialidade_id);
+            $info = [
+                'titulo' => 'Notificacion de consulta medica',
+                'paciente'=>$paciente->primer_nombre.' '.$paciente->segundo_nombre.' '.$paciente->tercer_nombre.' '.$paciente->primer_apellido.' '.$paciente->segundo_apellido,
+                'dpi'=>$paciente->cui,
+                'responsable'=>$paciente->primer_nombre_responsable.' '.$paciente->primer_apellido_responsable,
+                'medico' => $medico->primer_nombre.' '.$medico->segundo_nombre.' '.$medico->tercer_nombre.' '.$medico->primer_apellido.' '.$medico->segundo_apellido,,
+                'horario' => $request->fecha_asignada,
+                'especialidad' => $especialidad->nombre;
+            ];
+            Mail::to($paciente->email)->send(new NotifyMail($info));
         }
 
         DB::commit();
@@ -110,6 +128,7 @@ class ConsultaMedicaController extends ApiController
             'fecha_asignada_fin' => 'required',
         ]);
 
+        DB::beginTransaction();
         $consultas_medica->medico_id = $request->medico_id;
         $consultas_medica->fecha_asignada = $request->fecha_asignada;
         $consultas_medica->fecha_asignada_fin = $request->fecha_asignada_fin;
@@ -119,6 +138,25 @@ class ConsultaMedicaController extends ApiController
         }
 
         $consultas_medica->save();
+
+        $solicitud = Solicitude::where('id',$request->solicitude_id)->first();
+        if(!is_null($solicitud)){
+            $paciente = Paciente::find($solicitud->paciente_id);
+            $medico = Medico::find($request->medico_id);
+            $especialidad = Especialidade::find($solicitud->especialidade_id);
+            $info = [
+                'titulo' => 'Notificacion actualización de consulta medica',
+                'paciente'=>$paciente->primer_nombre.' '.$paciente->segundo_nombre.' '.$paciente->tercer_nombre.' '.$paciente->primer_apellido.' '.$paciente->segundo_apellido,
+                'dpi'=>$paciente->cui,
+                'responsable'=>$paciente->primer_nombre_responsable.' '.$paciente->primer_apellido_responsable,
+                'medico' => $medico->primer_nombre.' '.$medico->segundo_nombre.' '.$medico->tercer_nombre.' '.$medico->primer_apellido.' '.$medico->segundo_apellido,,
+                'horario' => $request->fecha_asignada,
+                'especialidad' => $especialidad->nombre;
+            ];
+            Mail::to($paciente->email)->send(new NotifyMail($info));
+        }
+
+        DB::commit();
 
         return $this->showOne($consultas_medica,201);
     }

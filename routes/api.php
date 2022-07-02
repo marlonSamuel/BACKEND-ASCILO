@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\PagoController;
 use App\Http\Controllers\Api\PsicopatologiaController;
 use App\Http\Controllers\Api\ReporteController;
 use App\Http\Controllers\Api\SolicitudController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Http\Request;
 
@@ -35,6 +36,11 @@ use Illuminate\Http\Request;
 Route::post('auth/login', [AuthController::class, 'login']);
 Route::get('auth/logout', [AuthController::class, 'logout']);
 Route::get('auth/me', [AuthController::class, 'user']);
+
+//users
+Route::resource('users', UserController::class, ['except' => ['create', 'edit']]);
+Route::get('users-roles', [UserController::class,'roles']);
+Route::put('users-change-password', [UserController::class,'changePassword']);
 
 //psicopagologias
 Route::resource('psicopatologias', PsicopatologiaController::class, ['except' => ['create', 'edit']]);
