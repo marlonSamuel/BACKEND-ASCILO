@@ -69,9 +69,9 @@ class ConsultaMedicaController extends ApiController
                 'paciente'=>$paciente->primer_nombre.' '.$paciente->segundo_nombre.' '.$paciente->tercer_nombre.' '.$paciente->primer_apellido.' '.$paciente->segundo_apellido,
                 'dpi'=>$paciente->cui,
                 'responsable'=>$paciente->primer_nombre_responsable.' '.$paciente->primer_apellido_responsable,
-                'medico' => $medico->primer_nombre.' '.$medico->segundo_nombre.' '.$medico->tercer_nombre.' '.$medico->primer_apellido.' '.$medico->segundo_apellido,,
+                'medico' => $medico->primer_nombre.' '.$medico->segundo_nombre.' '.$medico->tercer_nombre.' '.$medico->primer_apellido.' '.$medico->segundo_apellido,
                 'horario' => $request->fecha_asignada,
-                'especialidad' => $especialidad->nombre;
+                'especialidad' => $especialidad->nombre
             ];
             Mail::to($paciente->email)->send(new NotifyMail($info));
         }
@@ -151,7 +151,7 @@ class ConsultaMedicaController extends ApiController
                 'responsable'=>$paciente->primer_nombre_responsable.' '.$paciente->primer_apellido_responsable,
                 'medico' => $medico->primer_nombre.' '.$medico->segundo_nombre.' '.$medico->tercer_nombre.' '.$medico->primer_apellido.' '.$medico->segundo_apellido,
                 'horario' => $request->fecha_asignada,
-                'especialidad' => $especialidad->nombre;
+                'especialidad' => $especialidad->nombre
             ];
             Mail::to($paciente->email)->send(new NotifyMail($info));
         }
