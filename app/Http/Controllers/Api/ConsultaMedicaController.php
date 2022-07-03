@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
+use App\Mail\NotifyMail;
 use App\Models\Ascilo;
 use App\Models\Consultas_medica;
 use App\Models\Consultas_medicas_examene;
