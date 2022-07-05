@@ -74,7 +74,12 @@ class ConsultaMedicaController extends ApiController
                 'horario' => $request->fecha_asignada,
                 'especialidad' => $especialidad->nombre
             ];
-            Mail::to($paciente->email)->send(new NotifyMail($info));
+            try{
+                Mail::to($paciente->email)->send(new NotifyMail($info));
+            }catch(Throwable $e){
+
+            }
+            
         }
 
         DB::commit();

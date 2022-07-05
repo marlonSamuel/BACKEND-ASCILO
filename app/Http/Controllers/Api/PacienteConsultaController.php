@@ -91,7 +91,11 @@ class PacienteConsultaController extends ApiController
     	$consulta = Consultas_medica::find($id);
     	$consulta->medicamentos()->update(['entregado' => true]);
 
-    	$suma = $consulta->medicamentos()->sum('precio');
+        $suma = 0;
+    	$data_medicamentos = $consulta->medicamentos()->get();
+        foreach ($data_medicamentos as $med) {
+            $suma = $suma + ($med->precio * $med->cantidad);
+        }
     	$consulta_pago = CostoFundacione::where('consultas_medica_id',$id)->first();
     	if(!is_null($consulta_pago))
     	{
