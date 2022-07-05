@@ -35,7 +35,7 @@ class Paciente extends Model
         'celular',
         'telefono',
         'email',
-        'fecha_nacimiento_responsable',
+        'fecha_ingreso',
         'razon',
         'alergias',
         'direccion_responsable'
