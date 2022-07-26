@@ -44,7 +44,8 @@ class MedicoController extends ApiController
             'direccion' => 'required',
             'fecha_nacimiento' => 'required',
             'telefono' => 'required',
-            'email' => 'required|string|email|unique:medicos'
+            'email' => 'required|string|email|unique:medicos',
+            'especialidade_id' => 'required'
         ]);
 
         DB::beginTransaction();
@@ -100,7 +101,8 @@ class MedicoController extends ApiController
             'direccion' => 'required',
             'fecha_nacimiento' => 'required',
             'telefono' => 'required',
-            'email' => 'required|string|unique:medicos,email,' . $medico->id
+            'email' => 'required|string|unique:medicos,email,' . $medico->id,
+            'especialidade_id' => 'required'
         ]);
 
         DB::beginTransaction();
@@ -114,6 +116,8 @@ class MedicoController extends ApiController
         $medico->telefono = $request->telefono;
         $medico->cui = $request->cui;
         $medico->tercer_nombre = $request->tercer_nombre;
+        $medico->email = $request->email;
+        $medico->especialidade_id = $request->especialidade_id;
 
         if (!$medico->isDirty()) {
             return $this->errorResponse('Se debe especificar al menos un valor diferente para actualizar', 422);
